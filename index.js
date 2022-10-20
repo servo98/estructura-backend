@@ -23,23 +23,29 @@ mongoose.connect(process.env.DB_URI, async () => {
     role: 'Client',
   });
 
-  console.log(user);
+  // console.log(user);
 
-  // User.find({
-  //   name: 'Juan',
-  // });
+  const users = await User.find({
+    name: 'Juan',
+  });
 
-  // User.updateMany(
-  //   {
-  //     name: 'Juan',
-  //     lastname: 'Rodriguez',
-  //   },
-  //   {
-  //     role: 'Admin',
-  //   }
-  // );
+  // console.log(users);
 
-  // User.deleteOne({
-  //   name: 'Juan',
-  // });
+  const promiseResult = await User.updateMany(
+    {
+      name: 'Juan',
+      lastname: 'Rodriguez',
+    },
+    {
+      role: 'Admin',
+    }
+  );
+
+  // console.log(promiseResult);
+
+  const result = await User.deleteOne({
+    name: 'Juan',
+  });
+
+  console.log(result);
 });
