@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import User from './api/models/User.js';
+import Book from './api/models/Book.js';
 
 dotenv.config();
 
@@ -48,4 +49,33 @@ mongoose.connect(process.env.DB_URI, async () => {
   });
 
   console.log(result);
+
+  //TODO: Ejercicio1
+
+  /**
+   * 1.- Crear modelo book
+   * 2.- create de modelo book
+   * 3.- find de Book
+   * 4.- Update Book by id
+   * 5.- Delete by id
+   */
+
+  const book = await Book.create({
+    edition: 1,
+    editorial: 'Los panchos',
+    isbn: '1jd8un12db812dg7',
+    pageNumber: 200,
+    title: 'Mongo for dummies',
+  });
+
+  console.log(book);
+
+  const books = await Book.find();
+  console.log(books);
+
+  const updated = await Book.findByIdAndUpdate('6350b2d4acdc19ec94ff0f6d', {
+    title: 'Título cambiado',
+  });
+
+  console.log(updated);
 });
