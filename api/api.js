@@ -3,6 +3,8 @@ import itemRoutes from './routes/itemRoutes.js';
 
 const api = express();
 
+api.use(express.json());
+
 api.get('/status', (_, res) => {
   res.json({
     msg: 'API En linea funcionado',
