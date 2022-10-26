@@ -2,7 +2,7 @@
 
 // req.query ✅
 
-// req.params
+// req.params ✅
 
 // req.headers
 
@@ -57,7 +57,23 @@ const readById = async (req, res) => {
   }
 };
 
-const update = () => {};
+const update = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const item = await Item.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    return res.json({
+      msg: 'Item modificado',
+      item,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: 'Error al actualizar item',
+      error,
+    });
+  }
+};
 
 const remove = () => {};
 
