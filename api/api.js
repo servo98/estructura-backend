@@ -1,6 +1,7 @@
 import express from 'express';
 import itemRoutes from './routes/itemRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import ticketRoutes from './routes/ticketRoutes.js';
 
 const api = express();
 
@@ -16,5 +17,6 @@ api.get('/status', (_, res) => {
 
 api.use(itemRoutes);
 api.use(userRoutes);
+api.use(ticketRoutes);
 
 export default api;
