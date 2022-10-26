@@ -8,6 +8,8 @@ const router = express.Router();
  *
  */
 
-router.route('/items').post(itemController.create);
+router.route('/items').post(itemController.create).get(itemController.read);
+
+router.route('/items/:id').get(itemController.readById);
 
 export default router;
