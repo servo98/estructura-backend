@@ -55,4 +55,51 @@ const readById = async (req, res) => {
 const update = async (req, res) => {};
 const remove = async (req, res) => {};
 
-export { create, read, readById, update, remove };
+const calculateById = async (req, res) => {
+  try {
+    /**
+     * Recibo un id
+     */
+
+    let subTotal = 0; //suma de los price de los items
+    let tax; //subtotal * .16
+    let total; // subtotal + tax
+
+    const { id } = req.params;
+
+    const ticket = await Ticket.findById(id).populate('items');
+
+    subTotal = ticket.items.reduce(
+      (anterior, itemActual) => anterior + itemActual.price,
+      0
+    );
+
+    tax = subTotal * 0.16;
+
+    total = tax + subTotal;
+
+    const updated = await Ticket.findByIdAndUpdate(
+      id,
+      {
+        subTotal,
+        total,
+        tax,
+      },
+      {
+        new: true,
+      }
+    );
+
+    return res.json({
+      msg: 'Ticket calculado correctamente',
+      ticket: updated,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: 'Error al calcular ticket',
+      error,
+    });
+  }
+};
+
+export { create, read, readById, update, remove, calculateById };

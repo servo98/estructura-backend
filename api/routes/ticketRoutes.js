@@ -22,4 +22,6 @@ router
   .put(ticketController.update)
   .delete(ticketController.remove);
 
+router.route('/tickets/:id/calculate').put(ticketController.calculateById);
+
 export default router;
