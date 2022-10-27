@@ -78,3 +78,15 @@ const update = async (req, res) => {
 const remove = () => {};
 
 export { create, read, readById, remove, update };
+
+/**
+ * app.use(string, fn)
+ *
+ * app.use(fn)
+ *
+ * app.use(fn1, fn2)
+ *
+ * app.use(fn1, fn2, fn3)
+ *
+ * app.use(...fnx)
+ */

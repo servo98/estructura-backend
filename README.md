@@ -22,3 +22,10 @@
 - Crear controlador
   - Qué recibimos ticket id
   - Qué hay que regresar ticket actualizo
+
+# TODOS los middlewares en una cadena comparten el mismo REQUEST Y RESPONSE
+
+## joi
+
+- 1 crear schema
+- 2 usar el schema para validar
