@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jwt-simple';
 import User from '../models/User.js';
+import config from '../config/index.js';
 
 const register = async (req, res) => {
   try {
@@ -34,13 +36,6 @@ const login = async (req, res) => {
    * 4.- Crear token y mandarlo
    */
 
-  /**
-   * A      codificar  B
-   * payload  -> 🔑   token
-   * 97291u2bd12    -> 18273u912easkdujhaskjd
-   * token    -> 🔑   payload
-   */
-
   const { body } = req;
   if (!body.password || !body.email) {
     return res.status(400).json({
@@ -65,7 +60,23 @@ const login = async (req, res) => {
         msg: 'Credenciales inválidas',
       });
     }
-  } catch (error) {}
+
+    const payload = {
+      userId: user.id,
+    };
+
+    const token = jwt.encode(payload, config.jwtSecret);
+
+    return res.json({
+      msg: 'Login correcto',
+      token,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: 'Error al hacer login',
+      error,
+    });
+  }
 };
 
 export { register, login };
