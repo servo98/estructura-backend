@@ -1,9 +1,10 @@
 import express from 'express';
+import morgan from 'morgan';
 import itemRoutes from './routes/itemRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import ticketRoutes from './routes/ticketRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-import morgan from 'morgan';
+import { authValidator } from './middlewares/authValidator.js';
 
 const api = express();
 
@@ -23,9 +24,9 @@ api.get('/status', (_, res) => {
 
 api.use(authRoutes);
 
-api.use(itemRoutes);
+api.use('/items', authValidator, itemRoutes);
 // api.use(userRoutes);
-api.use(ticketRoutes);
+api.use('/tickets', authValidator, ticketRoutes);
 
 // const errorLogger = (error, request, response, next) => {
 //   console.log(`error ${error.message}`);

@@ -11,17 +11,14 @@ const router = express.Router();
  * /tickets/:id DELETE
  */
 
-router
-  .route('/tickets')
-  .get(ticketController.read)
-  .post(ticketController.create);
+router.route('/').get(ticketController.read).post(ticketController.create);
 
 router
-  .route('/tickets/:id')
+  .route('/:id')
   .get(ticketController.readById)
   .put(ticketController.update)
   .delete(ticketController.remove);
 
-router.route('/tickets/:id/calculate').put(ticketController.calculateById);
+router.route('/:id/calculate').put(ticketController.calculateById);
 
 export default router;
